@@ -50,3 +50,13 @@ HEADERS += \
 
 RESOURCES += \
     resources.qrc
+
+win32
+{
+    CONFIG(debug, debug|release)
+    {
+        RES_SRC = $$PWD/exter-resource
+        RES_DST = $$OUT_PWD/debug
+        QMAKE_POST_LINK += $$QMAKE_COPY $$shell_path($$RES_SRC)\\*.* $$shell_path($$RES_DST) $$escape_expand(\\n\\t)
+    }
+}
