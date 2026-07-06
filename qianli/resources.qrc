@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/backgrounds/battle_bg_1.png</file>
+        <file>resources/backgrounds/battle_bg_2.png</file>
+        <file>resources/backgrounds/battle_bg_3.png</file>
+        <file>resources/backgrounds/choice_bg.png</file>
+        <file>resources/backgrounds/map_bg.png</file>
+        <file>resources/backgrounds/battle_bg_4.png</file>
+        <file>resources/backgrounds/battle_bg_5.png</file>
+        <file>resources/backgrounds/menu_bg.png</file>
+        <file>resources/characters/wangzhi.png</file>
+        <file>resources/characters/qinqi.png</file>
+        <file>resources/characters/guanyu.png</file>
+        <file>resources/characters/kongxiu.png</file>
+        <file>resources/characters/hanfu.png</file>
+        <file>resources/characters/bianxi.png</file>
+        <file>resources/cards/card_attack.png</file>
+        <file>resources/cards/card_defense.png</file>
+        <file>resources/cards/card_special.png</file>
+    </qresource>
+</RCC>
