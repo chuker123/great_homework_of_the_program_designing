@@ -7,14 +7,15 @@
 #include <QMessageBox>
 #include <QTimer>
 
-ShopWidget::ShopWidget(QWidget *parent) : QWidget(parent) {
+ShopWidget::ShopWidget(QWidget *parent) : QWidget(parent) 
+{
     setupUI();
 }
 
-void ShopWidget::setupUI() {
+void ShopWidget::setupUI() 
+{
     setStyleSheet("background-color: #2c3e50; color: white;");
 
-    // 背景标签（不参与布局）
     m_bgLabel = new QLabel(this);
     m_bgLabel->setPixmap(QPixmap("shopbackground.png")); 
     m_bgLabel->setScaledContents(true);
@@ -25,7 +26,6 @@ void ShopWidget::setupUI() {
     mainLayout->setSpacing(15);
     mainLayout->setContentsMargins(30, 20, 30, 20);
 
-    // 标题
     QLabel *title = new QLabel("商店");
     title->setStyleSheet("font-family: 'zihunwulinjianghuti'; "
                          "font-size: 64px; "
@@ -61,7 +61,6 @@ void ShopWidget::setupUI() {
 
     mainLayout->addLayout(statsLayout);
 
-    // 消息标签
     m_messageLabel = new QLabel();
     m_messageLabel->setFixedHeight(30);
     m_messageLabel->setStyleSheet(
@@ -69,19 +68,16 @@ void ShopWidget::setupUI() {
         "color: #e74c3c; "
         "padding: 5px; "
         "background: transparent; "
-        "border: none;"
-    );
+        "border: none;");
     m_messageLabel->setAlignment(Qt::AlignCenter);
     m_messageLabel->setText("");
     mainLayout->addWidget(m_messageLabel);
 
-    // 物品容器
     m_itemsContainer = new QWidget();
     QGridLayout *gridLayout = new QGridLayout(m_itemsContainer);
     gridLayout->setSpacing(15);
     mainLayout->addWidget(m_itemsContainer);
 
-    // 按钮区域
     QHBoxLayout *btnLayout = new QHBoxLayout();
     btnLayout->setSpacing(20);
 
@@ -102,22 +98,20 @@ void ShopWidget::setupUI() {
     mainLayout->addLayout(btnLayout);
 }
 
-// 关键：重写 resizeEvent，让背景标签始终填充整个窗口
-void ShopWidget::resizeEvent(QResizeEvent *event) {
-    if (m_bgLabel) {
+void ShopWidget::resizeEvent(QResizeEvent *event) 
+{
+    if (m_bgLabel) 
         m_bgLabel->setGeometry(rect());
-    }
     QWidget::resizeEvent(event);
 }
 
-// 以下是你原有的槽函数，保持不变
-void ShopWidget::setupShop(Player *player, Inventory *inventory) {
+void ShopWidget::setupShop(Player *player, Inventory *inventory) 
+{
     m_player = player;
     m_inventory = inventory;
 
-    if (m_shopSystem) {
+    if (m_shopSystem) 
         delete m_shopSystem;
-    }
     m_shopSystem = new ShopSystem(player, inventory, this);
 
     connect(m_shopSystem, &ShopSystem::shopOpened, this, &ShopWidget::onShopOpened);
@@ -129,23 +123,25 @@ void ShopWidget::setupShop(Player *player, Inventory *inventory) {
     m_shopSystem->openShop();
 }
 
-void ShopWidget::onShopOpened(const QList<Item> &items, int money) {
+void ShopWidget::onShopOpened(const QList<Item> &items, int money) 
+{
     m_moneyLabel->setText(QString("金钱: %1").arg(money));
 
-    // 清除旧的物品按钮
     for (auto *btn : m_itemButtons) btn->deleteLater();
     for (auto *lbl : m_itemLabels) lbl->deleteLater();
     m_itemButtons.clear();
     m_itemLabels.clear();
 
     QGridLayout *grid = qobject_cast<QGridLayout*>(m_itemsContainer->layout());
-    while (grid->count() > 0) {
+    while (grid->count() > 0) 
+    {
         QLayoutItem *item = grid->takeAt(0);
         if (item->widget()) item->widget()->deleteLater();
         delete item;
     }
 
-    for (int i = 0; i < items.size(); ++i) {
+    for (int i = 0; i < items.size(); ++i) 
+    {
         const Item &item = items[i];
 
         QWidget *itemWidget = new QWidget();
@@ -169,19 +165,21 @@ void ShopWidget::onShopOpened(const QList<Item> &items, int money) {
         bool canAfford = m_shopSystem->canAfford(i);
         bool inStock = item.buyLimit < 0 || item.remainingStock > 0;
 
-        if (!canAfford || !inStock) {
+        if (!canAfford || !inStock) 
+        {
             buyBtn->setEnabled(false);
             buyBtn->setStyleSheet("QPushButton { background-color: #7f8c8d; color: #bdc3c7; padding: 8px; "
                                   "font-size: 13px; border-radius: 5px; }");
-        } else {
+        } 
+        else 
+        {
             buyBtn->setStyleSheet("QPushButton { background-color: #27ae60; color: white; padding: 8px; "
                                   "font-size: 13px; border-radius: 5px; }"
                                   "QPushButton:hover { background-color: #2ecc71; }");
         }
 
-        if (item.buyLimit > 0 && item.remainingStock <= 0) {
+        if (item.buyLimit > 0 && item.remainingStock <= 0) 
             buyBtn->setText("已售罄");
-        }
 
         connect(buyBtn, &QPushButton::clicked, [this, i]() { onBuyItem(i); });
         itemLayout->addWidget(buyBtn);
@@ -191,29 +189,36 @@ void ShopWidget::onShopOpened(const QList<Item> &items, int money) {
     }
 }
 
-void ShopWidget::onBuyItem(int index) {
+void ShopWidget::onBuyItem(int index) 
+{
     m_shopSystem->buyItem(index);
 }
 
-void ShopWidget::onItemBought(int itemIndex, bool success) {
-    if (success) {
+void ShopWidget::onItemBought(int itemIndex, bool success) 
+{
+    if (success) 
+    {
         updateItemDisplay();
         updateStates();
     }
 }
 
-void ShopWidget::updateItemDisplay() {
+void ShopWidget::updateItemDisplay() 
+{
     m_shopSystem->openShop();
 }
 
-void ShopWidget::onMoneyChanged(int newMoney) {
+void ShopWidget::onMoneyChanged(int newMoney) 
+{
     m_moneyLabel->setText(QString("金钱: %1").arg(newMoney));
 }
 
-void ShopWidget::onMessage(QString msg) {
+void ShopWidget::onMessage(QString msg) 
+{
     m_messageLabel->setText(msg);
     static QTimer *timer = nullptr;
-    if (timer) {
+    if (timer) 
+    {
         timer->stop();
         delete timer;
         timer = nullptr;
@@ -226,15 +231,18 @@ void ShopWidget::onMessage(QString msg) {
     timer->start(3000);
 }
 
-void ShopWidget::onOpenBackpack() {
+void ShopWidget::onOpenBackpack() 
+{
     emit openBackpack();
 }
 
-void ShopWidget::onCloseShop() {
+void ShopWidget::onCloseShop() 
+{
     emit shopClosed();
 }
 
-void ShopWidget::updateStates() {
+void ShopWidget::updateStates() 
+{
     if (!m_player) return;
     PlayerStats &stats = m_player->stats;
     m_hpLabel->setText(QString("HP: %1/%2").arg(stats.hp).arg(stats.maxHp));

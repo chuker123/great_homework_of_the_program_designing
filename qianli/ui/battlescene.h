@@ -8,7 +8,8 @@
 #include "systems/battlemanager.h"
 #include "ui/cardwidget.h"
 
-class BattleScene : public QWidget {
+class BattleScene : public QWidget 
+{
     Q_OBJECT
 public:
     explicit BattleScene(QWidget *parent = nullptr);
@@ -16,7 +17,6 @@ public:
 
 signals:
     void battleFinished(bool won, int rewardMoney);
-    void returnToMap();
 
 private slots:
     void onCardsDealt(const QList<Card> &cards);
@@ -37,7 +37,6 @@ private:
     BattleManager *m_battleManager = nullptr;
     QList<CardWidget*> m_cardWidgets;
 
-    // UI元素
     QProgressBar *m_playerHpBar;
     QProgressBar *m_playerPhyBar;
     QLabel *m_playerHpLabel;
@@ -54,13 +53,11 @@ private:
     QLabel *m_battleLog;
     QWidget *m_cardsContainer;
     QPushButton *m_skipButton;
-    // 新增：人物立绘
     QLabel *m_playerSprite;
     QLabel *m_enemySprite;
 
-    // 新增：战斗区域背景
     QWidget *m_battleArea;
-    QLabel *m_battleBgLabel;  // ← 新增：背景图标签
+    QLabel *m_battleBgLabel;  
 
     void setupUI();
     void updatePlayerStats();
@@ -69,4 +66,4 @@ private:
     void clearCards();
 };
 
-#endif // BATTLESCENE_H
+#endif 

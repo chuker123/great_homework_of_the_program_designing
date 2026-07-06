@@ -4,7 +4,8 @@
 #include <QMainWindow>
 #include "ui/gamescene.h"
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QMainWindow 
+{
     Q_OBJECT
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -15,11 +16,9 @@ private slots:
     void onLoadGame();
     void onShowHelp();
     void onShowCredits();
-    void onGameOver(bool victory);
     void onReturnToMenu();
 
 private:
-    void setupMenu();
     void showMenu();
 
     QWidget *m_menuWidget;
@@ -27,4 +26,4 @@ private:
     QLabel *m_menuBgLabel;
 };
 
-#endif // MAINWINDOW_H
+#endif 

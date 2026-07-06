@@ -1,8 +1,10 @@
 #include "item.h"
 #include <QList>
 
-Item ItemFactory::createItem(ItemType type) {
-    switch (type) {
+Item ItemFactory::createItem(ItemType type) 
+{
+    switch (type) 
+    {
     case ItemType::Bandage:
         return Item(type, "金疮散", 20, -1,
                     "军中常备疗伤药末", "止血愈创，回复25点气血");
@@ -26,7 +28,8 @@ Item ItemFactory::createItem(ItemType type) {
     }
 }
 
-QList<Item> ItemFactory::getShopItems() {
+QList<Item> ItemFactory::getShopItems() 
+{
     return {
         createItem(ItemType::Bandage),
         createItem(ItemType::MedicinalWine),

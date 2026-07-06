@@ -8,7 +8,8 @@
 #include "systems/shopsystem.h"
 #include "systems/inventory.h"
 
-class ShopWidget : public QWidget {
+class ShopWidget : public QWidget 
+{
     Q_OBJECT
 public:
     explicit ShopWidget(QWidget *parent = nullptr);
@@ -50,4 +51,4 @@ private:
     void updateStates();
 };
 
-#endif // SHOPWIDGET_H
+#endif 

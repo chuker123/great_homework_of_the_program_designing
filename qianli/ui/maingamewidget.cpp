@@ -1,4 +1,3 @@
 #include "maingamewidget.h"
 
-MainGameWidget::MainGameWidget(QWidget *parent) : QWidget(parent) {
-}
+MainGameWidget::MainGameWidget(QWidget *parent) : QWidget(parent) { }

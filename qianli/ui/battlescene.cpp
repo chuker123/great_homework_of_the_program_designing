@@ -8,21 +8,21 @@
 #include <QPropertyAnimation>
 #include <QTimer>
 
-BattleScene::BattleScene(QWidget *parent) : QWidget(parent) {
+BattleScene::BattleScene(QWidget *parent) : QWidget(parent) 
+{
     setupUI();
 }
 
-void BattleScene::setupUI() {
+void BattleScene::setupUI() 
+{
     setStyleSheet("background-color: #2a2a3a; color: white;");
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setSpacing(10);
     mainLayout->setContentsMargins(20, 10, 20, 10);
 
-    // 顶部状态栏
     QHBoxLayout *topLayout = new QHBoxLayout();
 
-    // 玩家状态（左侧）
     QVBoxLayout *playerLayout = new QVBoxLayout();
     QLabel *playerTitle = new QLabel("关羽");
     playerTitle->setStyleSheet("font-size: 18px; font-weight: bold; color: #4CAF50;");
@@ -54,7 +54,6 @@ void BattleScene::setupUI() {
     topLayout->addLayout(playerLayout);
     topLayout->addStretch();
 
-    // 回合信息（中间）
     QVBoxLayout *centerLayout = new QVBoxLayout();
     m_turnLabel = new QLabel("第 1 回合");
     m_turnLabel->setStyleSheet("font-size: 24px; font-weight: bold; color: #f39c12;");
@@ -69,7 +68,6 @@ void BattleScene::setupUI() {
     topLayout->addLayout(centerLayout);
     topLayout->addStretch();
 
-    // 敌方状态（右侧）
     QVBoxLayout *enemyLayout = new QVBoxLayout();
     QLabel *enemyTitle = new QLabel("敌方");
     enemyTitle->setStyleSheet("font-size: 18px; font-weight: bold; color: #e74c3c;");
@@ -92,39 +90,33 @@ void BattleScene::setupUI() {
     topLayout->addLayout(enemyLayout);
     mainLayout->addLayout(topLayout);
 
-    // 战斗区域（带背景图 + 人物立绘）
     m_battleArea = new QWidget();
     m_battleArea->setFixedHeight(250);
     m_battleArea->setMinimumWidth(960);
     m_battleArea->setStyleSheet("background-color: #1a1a2a; border-radius: 10px;");
 
-    // 背景图标签（放在最底层）
     m_battleBgLabel = new QLabel(m_battleArea);
     m_battleBgLabel->setGeometry(0, 0, 960, 250);
     m_battleBgLabel->setScaledContents(true);
     m_battleBgLabel->setStyleSheet("background: transparent; border-radius: 10px;");
-    m_battleBgLabel->lower();  // 放到最底层
+    m_battleBgLabel->lower();  
 
-    // 关羽立绘 - 靠左
     m_playerSprite = new QLabel(m_battleArea);
     m_playerSprite->setAlignment(Qt::AlignCenter);
     m_playerSprite->setStyleSheet("background: transparent;");
     m_playerSprite->setGeometry(20, 10, 180, 230);
 
-    // VS 标签 - 居中偏左
     QLabel* vsLabel = new QLabel("⚔️", m_battleArea);
     vsLabel->setStyleSheet("font-size: 36px; color: #f39c12; background: transparent;");
     vsLabel->setAlignment(Qt::AlignCenter);
     vsLabel->setGeometry(420, 90, 60, 60);
 
-    // 敌方立绘 - 靠右
     m_enemySprite = new QLabel(m_battleArea);
     m_enemySprite->setAlignment(Qt::AlignCenter);
     m_enemySprite->setStyleSheet("background: transparent;");
     m_enemySprite->setGeometry(760, 10, 180, 230);
 
     mainLayout->addWidget(m_battleArea);
-    // 计时条
     m_timerBar = new QProgressBar();
     m_timerBar->setRange(0, 10000);
     m_timerBar->setValue(10000);
@@ -132,7 +124,6 @@ void BattleScene::setupUI() {
                               "QProgressBar::chunk { background-color: #f39c12; border-radius: 5px; }");
     mainLayout->addWidget(m_timerBar);
 
-    // 战斗日志
     m_battleLog = new QLabel("战斗开始！");
     m_battleLog->setStyleSheet("font-size: 14px; color: #ecf0f1; background-color: #1a1a2a; padding: 10px; border-radius: 5px;");
     m_battleLog->setWordWrap(true);
@@ -140,14 +131,12 @@ void BattleScene::setupUI() {
     m_battleLog->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(m_battleLog);
 
-    // 卡牌区域
     m_cardsContainer = new QWidget();
     QHBoxLayout *cardsLayout = new QHBoxLayout(m_cardsContainer);
     cardsLayout->setSpacing(20);
     cardsLayout->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(m_cardsContainer);
 
-    // 跳过按钮
     m_skipButton = new QPushButton("放弃出牌");
     m_skipButton->setStyleSheet("QPushButton { background-color: #7f8c8d; color: white; padding: 10px 30px; "
                                 "font-size: 14px; border-radius: 5px; }"
@@ -156,13 +145,13 @@ void BattleScene::setupUI() {
     mainLayout->addWidget(m_skipButton, 0, Qt::AlignCenter);
 }
 
-void BattleScene::setupBattle(Player* player, const Enemy& enemy) {
+void BattleScene::setupBattle(Player* player, const Enemy& enemy) 
+{
 
     m_battleLog->setText("战斗开始！");
 
-    if (m_battleManager) {
+    if (m_battleManager) 
         delete m_battleManager;
-    }
     m_battleManager = new BattleManager(player, enemy, this);
 
     connect(m_battleManager, &BattleManager::cardsDealt, this, &BattleScene::onCardsDealt);
@@ -181,46 +170,51 @@ void BattleScene::setupBattle(Player* player, const Enemy& enemy) {
     QString bgPath;
     QString enemyImage;
 
-    if (enemy.name == "孔秀") {
+    if (enemy.name == "孔秀") 
+    {
         bgPath = ":/resources/backgrounds/battle_bg_1.png";
         enemyImage = ":/resources/characters/kongxiu.png";
     }
-    else if (enemy.name == "韩福") {
+    else if (enemy.name == "韩福") 
+    {
         bgPath = ":/resources/backgrounds/battle_bg_2.png";
         enemyImage = ":/resources/characters/hanfu.png";
     }
-    else if (enemy.name == "卞喜") {
+    else if (enemy.name == "卞喜") 
+    {
         bgPath = ":/resources/backgrounds/battle_bg_3.png";
         enemyImage = ":/resources/characters/bianxi.png";
     }
-    else if (enemy.name == "王植") {
+    else if (enemy.name == "王植") 
+    {
         bgPath = ":/resources/backgrounds/battle_bg_4.png";
         enemyImage = ":/resources/characters/wangzhi.png";
     }
-    else if (enemy.name == "秦琪") {
+    else if (enemy.name == "秦琪") 
+    {
         bgPath = ":/resources/backgrounds/battle_bg_5.png";
         enemyImage = ":/resources/characters/qinqi.png";
     }
 
-    // 加载背景图
     QPixmap bg(bgPath);
-    if (!bg.isNull() && m_battleBgLabel) {
+    if (!bg.isNull() && m_battleBgLabel) 
+    {
         QPixmap scaled = bg.scaled(960, 250, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
         int x = (scaled.width() - 960) / 2;
         QPixmap cropped = scaled.copy(x, 0, 960, 250);
         m_battleBgLabel->setPixmap(cropped);
     }
 
-    // 加载关羽立绘
     QPixmap guanyuPixmap(":/resources/characters/guanyu.png");
-    if (!guanyuPixmap.isNull()) {
+    if (!guanyuPixmap.isNull()) 
+    {
         guanyuPixmap = guanyuPixmap.scaled(180, 230, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         m_playerSprite->setPixmap(guanyuPixmap);
     }
 
-    // 加载敌方立绘
     QPixmap enemyPixmap(enemyImage);
-    if (!enemyPixmap.isNull()) {
+    if (!enemyPixmap.isNull()) 
+    {
         enemyPixmap = enemyPixmap.scaled(180, 230, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         m_enemySprite->setPixmap(enemyPixmap);
     }
@@ -230,7 +224,8 @@ void BattleScene::setupBattle(Player* player, const Enemy& enemy) {
     m_battleManager->startBattle();
 }
 
-void BattleScene::updatePlayerStats() {
+void BattleScene::updatePlayerStats() 
+{
     if (!m_battleManager) return;
     Player *p = m_battleManager->getPlayer();
     m_playerHpBar->setRange(0, p->stats.maxHp);
@@ -245,7 +240,8 @@ void BattleScene::updatePlayerStats() {
     m_playerWlLabel->setText(QString("武器等级: %1").arg(p->stats.weaponLevel));
 }
 
-void BattleScene::updateEnemyStats() {
+void BattleScene::updateEnemyStats() 
+{
     if (!m_battleManager) return;
     const Enemy &e = m_battleManager->getEnemy();
     m_enemyHpBar->setRange(0, e.maxHp);
@@ -255,12 +251,14 @@ void BattleScene::updateEnemyStats() {
     m_enemyDefLabel->setText(QString("防御率: %1%").arg(int(e.defenseRate * 100)));
 }
 
-void BattleScene::onCardsDealt(const QList<Card> &cards) {
+void BattleScene::onCardsDealt(const QList<Card> &cards) 
+{
     clearCards();
     m_skipButton->setEnabled(true);
 
     QHBoxLayout *layout = qobject_cast<QHBoxLayout*>(m_cardsContainer->layout());
-    for (int i = 0; i < cards.size(); ++i) {
+    for (int i = 0; i < cards.size(); ++i) 
+    {
         CardWidget *cw = new CardWidget(cards[i], m_battleManager->getPlayer()->stats.weaponLevel, m_cardsContainer);
         connect(cw, &CardWidget::cardClicked, [this, i]() { onCardClicked(i); });
         layout->addWidget(cw);
@@ -270,31 +268,35 @@ void BattleScene::onCardsDealt(const QList<Card> &cards) {
     updatePlayerStats();
 }
 
-void BattleScene::clearCards() {
-    for (auto *cw : m_cardWidgets) {
+void BattleScene::clearCards() 
+{
+    for (auto *cw : m_cardWidgets) 
         cw->deleteLater();
-    }
+
     m_cardWidgets.clear();
 }
 
-void BattleScene::onCardClicked(int index) {
+void BattleScene::onCardClicked(int index) 
+{
     m_skipButton->setEnabled(false);
-    for (auto *cw : m_cardWidgets) {
+    for (auto *cw : m_cardWidgets) 
         cw->setEnabled(false);
-    }
+
     m_battleManager->playerPlayCard(index);
 }
 
-void BattleScene::onSkipTurn() {
+void BattleScene::onSkipTurn() 
+{
     m_skipButton->setEnabled(false);
-    for (auto *cw : m_cardWidgets) {
+    for (auto *cw : m_cardWidgets) 
         cw->setEnabled(false);
-    }
+    
     addLog("已放弃出牌！");
     m_battleManager->skipTurn();
 }
 
-void BattleScene::onTurnChanged(int turn, bool enemyAttacking) {
+void BattleScene::onTurnChanged(int turn, bool enemyAttacking) 
+{
     m_turnLabel->setText(QString("第 %1 回合").arg(turn));
     m_actionLabel->setText(enemyAttacking ? "敌方正在进攻！请防守！" : "敌方正在防御！请进攻！");
     m_actionLabel->setStyleSheet(enemyAttacking
@@ -302,66 +304,76 @@ void BattleScene::onTurnChanged(int turn, bool enemyAttacking) {
                                      : "font-size: 16px; color: #3498db; font-weight: bold;");
 }
 
-void BattleScene::onPlayerDamaged(int damage) {
+void BattleScene::onPlayerDamaged(int damage) 
+{
     addLog(QString("受到 %1 点伤害！").arg(damage));
     updatePlayerStats();
 }
 
-void BattleScene::onEnemyAttacked(int damage) {
+void BattleScene::onEnemyAttacked(int damage) 
+{
     addLog(QString("对敌方造成 %1 点伤害！").arg(damage));
     updateEnemyStats();
 }
 
-void BattleScene::onDamageBlocked(int blockRate, bool fullBlock) {
-    if (fullBlock) {
+void BattleScene::onDamageBlocked(int blockRate, bool fullBlock) 
+{
+    if (fullBlock) 
         addLog("完全防御！未受到伤害！");
-    } else {
+    else 
         addLog(QString("防御成功！抵消 %1% 伤害！").arg(blockRate));
-    }
 }
 
-void BattleScene::onDamageRebounded(int damage) {
+void BattleScene::onDamageRebounded(int damage) 
+{
     addLog(QString("反弹 %1 点伤害！").arg(damage));
 }
 
-void BattleScene::onTimerUpdated(int remainingMs) {
+void BattleScene::onTimerUpdated(int remainingMs) 
+{
     m_timerBar->setValue(remainingMs);
 }
 
-void BattleScene::onTimerTimeout() {
+void BattleScene::onTimerTimeout() 
+{
     addLog("时间到！放弃出牌！");
 }
 
-void BattleScene::onNotEnoughPhy() {
+void BattleScene::onNotEnoughPhy() 
+{
     addLog("体力不足！无法打出该卡牌！");
     m_skipButton->setEnabled(true);
-    for (auto *cw : m_cardWidgets) {
+    for (auto *cw : m_cardWidgets) 
         cw->setEnabled(true);
-    }
 }
 
-void BattleScene::onBattleWon(int rewardMoney) {
+void BattleScene::onBattleWon(int rewardMoney) 
+{
     clearCards();
     m_skipButton->setEnabled(false);
     m_timerBar->setValue(0);
     addLog(QString("战斗胜利！获得 %1 金钱！").arg(rewardMoney));
 
-    QTimer::singleShot(2000, [this, rewardMoney]() {
+    QTimer::singleShot(2000, [this, rewardMoney]() 
+    {
         emit battleFinished(true, rewardMoney);
     });
 }
 
-void BattleScene::onBattleLost() {
+void BattleScene::onBattleLost() 
+{
     clearCards();
     m_skipButton->setEnabled(false);
     m_timerBar->setValue(0);
     addLog("战斗失败...关羽战死沙场...");
 
-    QTimer::singleShot(2000, [this]() {
+    QTimer::singleShot(2000, [this]() 
+    {
         emit battleFinished(false, 0);
     });
 }
 
-void BattleScene::addLog(const QString &text) {
+void BattleScene::addLog(const QString &text) 
+{
     m_battleLog->setText(text);
 }

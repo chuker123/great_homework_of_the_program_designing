@@ -11,7 +11,8 @@
 #include "ui/shopwidget.h"
 #include "ui/levelmapwidget.h"
 
-class GameScene : public QWidget {
+class GameScene : public QWidget 
+{
     Q_OBJECT
 public:
     explicit GameScene(QWidget *parent = nullptr);
@@ -30,7 +31,6 @@ private slots:
     void onShopClosed();
     void onOpenBackpack();
     void onBackpackItemUsed();
-    void onSaveGame();
 
 protected:
     void resizeEvent(QResizeEvent *event) override;
@@ -64,4 +64,4 @@ private:
     void autoSave();
 };
 
-#endif // GAMESCENE_H
+#endif 

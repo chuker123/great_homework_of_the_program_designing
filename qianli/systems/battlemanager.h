@@ -7,7 +7,8 @@
 #include "models/enemy.h"
 #include "models/card.h"
 
-class BattleManager : public QObject {
+class BattleManager : public QObject 
+{
     Q_OBJECT
 public:
     explicit BattleManager(Player *player, Enemy enemy, QObject *parent = nullptr);
@@ -52,7 +53,7 @@ private:
     QList<Card> m_currentCards;
 
     QTimer *m_turnTimer;
-    int m_remainingTime = 20000;  // 10秒 = 10000ms
+    int m_remainingTime = 10000;  
     static constexpr int TURN_TIME = 10000;
     static constexpr int TIMER_INTERVAL = 100;
 
@@ -64,4 +65,4 @@ private:
     void processAttack(const Card &card);
 };
 
-#endif // BATTLEMANAGER_H
+#endif 

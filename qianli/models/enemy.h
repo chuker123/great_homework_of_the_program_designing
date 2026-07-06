@@ -3,13 +3,14 @@
 
 #include <QString>
 
-struct Enemy {
+struct Enemy 
+{
     QString name;
     int hp;
     int maxHp;
-    int dmg;            // 敌方攻击力
-    double defenseRate; // 敌方防御率 EDR
-    int rewardMoney;    // 击败后获得金钱
+    int dmg;            
+    double defenseRate; 
+    int rewardMoney;    
     QString description;
 
     Enemy() = default;
@@ -20,10 +21,11 @@ struct Enemy {
     void takeDamage(int damage) { hp = (hp > damage) ? hp - damage : 0; }
 };
 
-class EnemyFactory {
+class EnemyFactory 
+{
 public:
     static Enemy createEnemy(const QString &levelName);
     static QStringList getLevelNames();
 };
 
-#endif // ENEMY_H
+#endif 

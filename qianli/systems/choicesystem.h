@@ -5,7 +5,8 @@
 #include <functional>
 #include "models/player.h"
 
-struct ChoiceEvent {
+struct ChoiceEvent 
+{
     QString title;
     QString description;
     QString optionA;
@@ -16,10 +17,11 @@ struct ChoiceEvent {
     std::function<void(Player &)> effectB;
 };
 
-class ChoiceSystem {
+class ChoiceSystem 
+{
 public:
     static ChoiceEvent getEventForLevel(const QString &levelName);
     static bool hasChoiceEvent(const QString &levelName);
 };
 
-#endif // CHOICESYSTEM_H
+#endif 

@@ -10,7 +10,8 @@
 #include <QShortcut>
 #include "systems/savemanager.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) 
+{
     setWindowTitle("千里走单骑");
     setMinimumSize(1000, 700);
 
@@ -22,29 +23,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QStackedWidget *stack = new QStackedWidget();
     mainLayout->addWidget(stack);
 
-    // 主菜单
     m_menuWidget = new QWidget();
     m_menuWidget->setStyleSheet("background-color: #1a1a2a;");
 
-    // 创建布局前先设置背景
     QVBoxLayout* menuLayout = new QVBoxLayout(m_menuWidget);
     menuLayout->setSpacing(20);
     menuLayout->setContentsMargins(50, 50, 50, 50);
 
-    // 背景图标签（放在最底层）
     m_menuBgLabel = new QLabel(m_menuWidget);
-    m_menuBgLabel->setGeometry(0, 0, 1000, 700);  // 和窗口最小尺寸一致
+    m_menuBgLabel->setGeometry(0, 0, 1000, 700);  
     m_menuBgLabel->setScaledContents(true);
     m_menuBgLabel->setStyleSheet("background: transparent;");
-    m_menuBgLabel->lower();  // 放到最底层
+    m_menuBgLabel->lower(); 
 
-    // 加载背景图
     QPixmap menuBg(":/resources/backgrounds/menu_bg.png");
-    if (!menuBg.isNull()) {
+    if (!menuBg.isNull())
         m_menuBgLabel->setPixmap(menuBg);
-    }
 
-    // 标题
     QLabel *title = new QLabel("千里走单骑");
     QFont titleFont("楷体", 60, QFont::Bold);
     title->setFont(titleFont);
@@ -74,8 +69,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     menuLayout->addSpacing(50);
 
-    // 按钮
-    auto createMenuBtn = [](const QString &text, const QString &color) -> QPushButton* {
+    auto createMenuBtn = [](const QString &text, const QString &color) -> QPushButton* 
+    {
         QPushButton *btn = new QPushButton(text);
         btn->setFixedSize(250, 55);
         QFont btnFont("楷体", 24, QFont::Bold);
@@ -110,9 +105,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     stack->addWidget(m_menuWidget);
 
-    // 游戏场景
     m_gameScene = new GameScene();
-    connect(m_gameScene, &GameScene::gameOver, this, &MainWindow::onGameOver);
     connect(m_gameScene, &GameScene::returnToMenu, this, &MainWindow::onReturnToMenu);
     stack->addWidget(m_gameScene);
 
@@ -128,26 +121,31 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 MainWindow::~MainWindow() {}
 
-void MainWindow::showMenu() {
+void MainWindow::showMenu() 
+{
     QStackedWidget *stack = qobject_cast<QStackedWidget*>(centralWidget()->layout()->itemAt(0)->widget());
     stack->setCurrentIndex(0);
 }
 
-void MainWindow::onStartGame() {
+void MainWindow::onStartGame() 
+{
     QStackedWidget *stack = qobject_cast<QStackedWidget*>(centralWidget()->layout()->itemAt(0)->widget());
     m_gameScene->startNewGame();
     stack->setCurrentIndex(1);
 }
 
-void MainWindow::onLoadGame() {
+void MainWindow::onLoadGame() 
+{
     auto saves = SaveManager::instance().listSaves();
-    if (saves.isEmpty()) {
+    if (saves.isEmpty()) 
+    {
         QMessageBox::information(this, "读取存档", "没有可用的存档！");
         return;
     }
 
     QStringList items;
-    for (int i = 0; i < saves.size(); ++i) {
+    for (int i = 0; i < saves.size(); ++i) 
+    {
         items.append(QString("存档%1: %2 (HP:%3 PHY:%4 金钱:%5)")
                      .arg(i+1).arg(saves[i].levelName)
                      .arg(saves[i].stats.hp).arg(saves[i].stats.phy).arg(saves[i].stats.money));
@@ -155,7 +153,8 @@ void MainWindow::onLoadGame() {
 
     bool ok;
     QString item = QInputDialog::getItem(this, "读取存档", "选择存档:", items, 0, false, &ok);
-    if (ok && !item.isEmpty()) {
+    if (ok && !item.isEmpty()) 
+    {
         int index = items.indexOf(item);
         QStackedWidget *stack = qobject_cast<QStackedWidget*>(centralWidget()->layout()->itemAt(0)->widget());
         m_gameScene->loadGame(index);
@@ -163,7 +162,8 @@ void MainWindow::onLoadGame() {
     }
 }
 
-void MainWindow::onShowHelp() {
+void MainWindow::onShowHelp() 
+{
     QString help = R"(
 <b>《千里走单骑》游戏说明</b><br><br>
 <b>背景：</b>
@@ -192,7 +192,8 @@ void MainWindow::onShowHelp() {
     QMessageBox::information(this, "游戏说明", help);
 }
 
-void MainWindow::onShowCredits() {
+void MainWindow::onShowCredits() 
+{
     QString credits = R"(
 <b>《千里走单骑》</b><br><br>
 <b>开发团队：野兽王子队</b><br><br>
@@ -205,10 +206,7 @@ void MainWindow::onShowCredits() {
     QMessageBox::information(this, "制作人员", credits);
 }
 
-void MainWindow::onGameOver(bool victory) {
-    // 游戏结束处理
-}
-
-void MainWindow::onReturnToMenu() {
+void MainWindow::onReturnToMenu() 
+{
     showMenu();
 }

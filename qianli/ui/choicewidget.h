@@ -6,7 +6,8 @@
 #include <QPushButton>
 #include "systems/choicesystem.h"
 
-class ChoiceWidget : public QWidget {
+class ChoiceWidget : public QWidget 
+{
     Q_OBJECT
 public:
     explicit ChoiceWidget(QWidget *parent = nullptr);
@@ -30,4 +31,4 @@ private:
     void setupUI();
 };
 
-#endif // CHOICEWIDGET_H
+#endif 

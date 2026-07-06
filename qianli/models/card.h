@@ -6,13 +6,14 @@
 
 enum class CardType { Attack, Defense };
 
-struct Card {
+struct Card 
+{
     QString name;
     CardType type;
-    int costPhy;            // 消耗体力
-    double multiplier;      // 伤害倍率 或 弹反倍率
-    bool isSpecial;         // 是否为特殊防御卡
-    int unlockWeaponLevel;  // 解锁所需武器等级
+    int costPhy;         
+    double multiplier;     
+    bool isSpecial;         
+    int unlockWeaponLevel;  
     QString description;
 
     Card() = default;
@@ -21,7 +22,8 @@ struct Card {
           unlockWeaponLevel(unlock), description(desc) {}
 };
 
-class CardDeck {
+class CardDeck 
+{
 public:
     static QList<Card> getAllAttackCards();
     static QList<Card> getAllDefenseCards();
@@ -31,4 +33,4 @@ public:
     static int getPhyCostWithWeaponLevel(int baseCost, int weaponLevel);
 };
 
-#endif // CARD_H
+#endif 

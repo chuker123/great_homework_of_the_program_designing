@@ -6,7 +6,8 @@
 #include "inventory.h"
 #include <QObject>
 
-class ShopSystem : public QObject {
+class ShopSystem : public QObject 
+{
     Q_OBJECT
 public:
     explicit ShopSystem(Player *player, Inventory *inventory, QObject *parent = nullptr);
@@ -31,4 +32,4 @@ private:
     QList<Item> m_items;
 };
 
-#endif // SHOPSYSTEM_H
+#endif 

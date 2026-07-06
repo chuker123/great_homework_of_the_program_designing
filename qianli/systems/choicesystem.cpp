@@ -1,13 +1,16 @@
 #include "choicesystem.h"
 
-bool ChoiceSystem::hasChoiceEvent(const QString &levelName) {
+bool ChoiceSystem::hasChoiceEvent(const QString &levelName) 
+{
     return (levelName == "汜水关" || levelName == "荥阳");
 }
 
-ChoiceEvent ChoiceSystem::getEventForLevel(const QString &levelName) {
+ChoiceEvent ChoiceSystem::getEventForLevel(const QString &levelName) 
+{
     ChoiceEvent event;
 
-    if (levelName == "汜水关") {
+    if (levelName == "汜水关") 
+    {
         event.title = "故人重逢";
         event.description = "你来到汜水关前。守将卞喜久闻你的威名，在镇国寺设宴款待你。\n\n"
                            "你一眼便认出了寺内的普净和尚。他与你有旧怨，想不到在此处相遇。\n\n"
@@ -18,7 +21,9 @@ ChoiceEvent ChoiceSystem::getEventForLevel(const QString &levelName) {
         event.resultB = "原来，普净早已听说你的义举，他不忍义士良将无端殒命于此，于是将门外埋伏着刀斧手的消息告知于你。\n\n你怒喝一声，挥刀直取卞喜!";
         event.effectA = [](Player &p) { p.takeDamage(50); };
         event.effectB = [](Player &p) { };
-    } else if (levelName == "荥阳") {
+    } 
+    else if (levelName == "荥阳") 
+    {
         event.title = "暗藏杀机";
         event.description = "荥阳太守王植见你风尘仆仆，热情邀请你在驿馆歇息一夜。\n\n"
                            "胡班——王植部下从事——深夜来到你的窗边，探头探脑，\n\n"

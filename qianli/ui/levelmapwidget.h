@@ -6,7 +6,8 @@
 #include <QPushButton>
 #include <QStringList>
 
-class LevelMapWidget : public QWidget {
+class LevelMapWidget : public QWidget 
+{
     Q_OBJECT
 public:
     explicit LevelMapWidget(QWidget *parent = nullptr);
@@ -25,4 +26,4 @@ private:
     void updateButtonStates();
 };
 
-#endif // LEVELMAPWIDGET_H
+#endif 

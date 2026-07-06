@@ -4,7 +4,8 @@
 #include <QWidget>
 #include "models/card.h"
 
-class CardWidget : public QWidget {
+class CardWidget : public QWidget 
+{
     Q_OBJECT
 public:
     explicit CardWidget(const Card &card, int weaponLevel, QWidget *parent = nullptr);
@@ -26,4 +27,4 @@ private:
     void setupUI();
 };
 
-#endif // CARDWIDGET_H
+#endif 

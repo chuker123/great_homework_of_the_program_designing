@@ -5,14 +5,14 @@
 #include <QDataStream>
 
 struct PlayerStats {
-    int hp = 100;           // 血量 [0,100]
+    int hp = 100;          
     int maxHp = 100;
-    int phy = 100;          // 体力 [0,100]
+    int phy = 100;       
     int maxPhy = 100;
-    int dmg = 40;           // 攻击力 [WTS,100]
-    int weaponLevel = 1;    // 武器等级 {1,2,3,4,5}
+    int dmg = 40;          
+    int weaponLevel = 1;    
     int money = 0;
-    int tempDmgBoost = 0;   // 酒提供的临时攻击力加成（下关生效）
+    int tempDmgBoost = 0;   
 
     bool isBloodyBattle() const { return hp > 0 && hp < 50; }
     int getEffectiveDmg() const;
@@ -40,4 +40,4 @@ public:
     bool hasEnoughPhy(int cost) const { return stats.phy >= cost; }
 };
 
-#endif // PLAYER_H
+#endif 

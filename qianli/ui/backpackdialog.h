@@ -6,7 +6,8 @@
 #include "models/player.h"
 #include <QLabel>
 
-class BackpackDialog : public QDialog {
+class BackpackDialog : public QDialog 
+{
     Q_OBJECT
 public:
     explicit BackpackDialog(Player *player, Inventory *inventory, QWidget *parent = nullptr);
@@ -24,4 +25,4 @@ private:
     void updateItems();
 };
 
-#endif // BACKPACKDIALOG_H
+#endif 

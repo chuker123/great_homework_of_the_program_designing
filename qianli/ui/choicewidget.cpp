@@ -4,34 +4,31 @@
 #include <QLabel>
 #include <QPushButton>
 
-ChoiceWidget::ChoiceWidget(QWidget* parent) : QWidget(parent) {
+ChoiceWidget::ChoiceWidget(QWidget* parent) : QWidget(parent) 
+{
     setupUI();
 }
 
-void ChoiceWidget::setupUI() {
-    // 先设置基础样式
+void ChoiceWidget::setupUI() 
+{
     setStyleSheet("background-color: #1a1a2a; color: white;");
 
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     mainLayout->setSpacing(20);
     mainLayout->setContentsMargins(40, 30, 40, 30);
 
-    // 背景图标签（放在最底层）
     QLabel* bgLabel = new QLabel(this);
     bgLabel->setGeometry(0, 0, 1000, 600);
     bgLabel->setScaledContents(true);
     QPixmap bg(":/resources/backgrounds/choice_bg.png");
-    if (!bg.isNull()) {
+    if (!bg.isNull()) 
         bgLabel->setPixmap(bg);
-    }
-    bgLabel->lower();  // 放到最底层
-    // 标题
+    bgLabel->lower();  
     m_titleLabel = new QLabel();
     m_titleLabel->setStyleSheet("font-size: 28px; font-weight: bold; color: #f39c12;");
     m_titleLabel->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(m_titleLabel);
 
-    // 描述
     m_descLabel = new QLabel();
     m_descLabel->setStyleSheet("font-size: 16px; color: #ecf0f1; line-height: 1.6;");
     m_descLabel->setWordWrap(true);
@@ -39,7 +36,6 @@ void ChoiceWidget::setupUI() {
     m_descLabel->setMinimumHeight(150);
     mainLayout->addWidget(m_descLabel);
 
-    // 结果标签（初始隐藏）
     m_resultLabel = new QLabel();
     m_resultLabel->setStyleSheet("font-size: 18px; color: #2ecc71; font-weight: bold; padding: 20px; "
         "background-color: rgba(42, 42, 58, 200); border-radius: 10px;");
@@ -48,7 +44,6 @@ void ChoiceWidget::setupUI() {
     m_resultLabel->hide();
     mainLayout->addWidget(m_resultLabel);
 
-    // 选项按钮
     QHBoxLayout* btnLayout = new QHBoxLayout();
     btnLayout->setSpacing(30);
 
@@ -68,7 +63,6 @@ void ChoiceWidget::setupUI() {
 
     mainLayout->addLayout(btnLayout);
 
-    // 继续按钮（初始隐藏）
     m_continueBtn = new QPushButton("继续");
     m_continueBtn->setStyleSheet("QPushButton { background-color: #2ecc71; color: white; padding: 12px 50px; "
         "font-size: 16px; border-radius: 8px; }"
@@ -79,7 +73,8 @@ void ChoiceWidget::setupUI() {
     mainLayout->addStretch();
 }
 
-void ChoiceWidget::setChoiceEvent(const ChoiceEvent& event) {
+void ChoiceWidget::setChoiceEvent(const ChoiceEvent& event) 
+{
     m_currentEvent = event;
     m_titleLabel->setText(event.title);
     m_descLabel->setText(event.description);
@@ -94,7 +89,8 @@ void ChoiceWidget::setChoiceEvent(const ChoiceEvent& event) {
     m_btnB->setEnabled(true);
 }
 
-void ChoiceWidget::onOptionA() {
+void ChoiceWidget::onOptionA() 
+{
     m_btnA->setEnabled(false);
     m_btnB->setEnabled(false);
     m_btnA->hide();
@@ -106,8 +102,7 @@ void ChoiceWidget::onOptionA() {
         "font-weight: bold; "
         "padding: 20px; "
         "background-color: rgba(42, 42, 58, 200); "
-        "border-radius: 10px;"
-    );
+        "border-radius: 10px;");
     m_resultLabel->setText(m_currentEvent.resultA);
     m_resultLabel->show();
 
@@ -118,7 +113,8 @@ void ChoiceWidget::onOptionA() {
         });
 }
 
-void ChoiceWidget::onOptionB() {
+void ChoiceWidget::onOptionB() 
+{
     m_btnA->setEnabled(false);
     m_btnB->setEnabled(false);
     m_btnA->hide();
@@ -130,8 +126,7 @@ void ChoiceWidget::onOptionB() {
         "font-weight: bold; "
         "padding: 20px; "
         "background-color: rgba(42, 42, 58, 200); "
-        "border-radius: 10px;"
-    );
+        "border-radius: 10px;");
     m_resultLabel->setText(m_currentEvent.resultB);
     m_resultLabel->show();
 

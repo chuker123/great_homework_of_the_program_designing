@@ -12,7 +12,8 @@ BackpackDialog::BackpackDialog(Player *player, Inventory *inventory, QWidget *pa
     updateItems();
 }
 
-void BackpackDialog::setupUI() {
+void BackpackDialog::setupUI() 
+{
     setWindowTitle("背包");
     setMinimumSize(400, 400);
     setStyleSheet("background-color: #fdf5e6;");
@@ -21,13 +22,11 @@ void BackpackDialog::setupUI() {
     mainLayout->setSpacing(15);
     mainLayout->setContentsMargins(20, 20, 20, 20);
 
-    // 标题
     QLabel *title = new QLabel("背包");
     title->setStyleSheet("font-size: 24px; font-weight: bold; color: #8B4513;");
     title->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(title);
 
-    // 滚动区域
     QScrollArea *scrollArea = new QScrollArea();
     scrollArea->setWidgetResizable(true);
     scrollArea->setStyleSheet("QScrollArea { border: none; background: transparent; }");
@@ -37,12 +36,10 @@ void BackpackDialog::setupUI() {
     scrollArea->setWidget(m_itemsContainer);
     mainLayout->addWidget(scrollArea);
 
-    // 空背包提示
     m_emptyLabel = new QLabel("背包是空的");
     m_emptyLabel->setStyleSheet("font-size: 16px; color: #a0a0a0;");
     m_emptyLabel->setAlignment(Qt::AlignCenter);
 
-    // 关闭按钮
     QPushButton *closeBtn = new QPushButton("关闭");
     closeBtn->setStyleSheet("QPushButton { background-color: #8B4513; color: white; padding: 10px 30px; "
                             "font-size: 14px; border-radius: 5px; }"
@@ -51,11 +48,13 @@ void BackpackDialog::setupUI() {
     mainLayout->addWidget(closeBtn, 0, Qt::AlignCenter);
 }
 
-void BackpackDialog::updateItems() {
-    // 清除旧内容
+void BackpackDialog::updateItems() 
+{
     QLayout *oldLayout = m_itemsContainer->layout();
-    if (oldLayout) {
-        while (QLayoutItem *item = oldLayout->takeAt(0)) {
+    if (oldLayout) 
+    {
+        while (QLayoutItem *item = oldLayout->takeAt(0)) 
+        {
             if (item->widget()) item->widget()->deleteLater();
             delete item;
         }
@@ -66,13 +65,15 @@ void BackpackDialog::updateItems() {
     layout->setSpacing(10);
 
     auto items = m_inventory->getAllItems();
-    if (items.isEmpty()) {
+    if (items.isEmpty()) 
+    {
         layout->addWidget(m_emptyLabel);
         layout->addStretch();
         return;
     }
 
-    for (auto it = items.begin(); it != items.end(); ++it) {
+    for (auto it = items.begin(); it != items.end(); ++it) 
+    {
         ItemType type = it.key();
         int count = it.value();
 
@@ -99,7 +100,8 @@ void BackpackDialog::updateItems() {
                               "font-size: 13px; border-radius: 4px; }"
                               "QPushButton:hover { background-color: #45a049; }");
         connect(useBtn, &QPushButton::clicked, [this, type]() {
-            if (m_inventory->useItem(type, *m_player)) {
+            if (m_inventory->useItem(type, *m_player)) 
+            {
                 emit itemUsed();
                 refresh();
             }
@@ -112,6 +114,7 @@ void BackpackDialog::updateItems() {
     layout->addStretch();
 }
 
-void BackpackDialog::refresh() {
+void BackpackDialog::refresh() 
+{
     updateItems();
 }

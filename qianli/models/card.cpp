@@ -3,7 +3,8 @@
 #include <algorithm>
 
 QList<Card> CardDeck::getAllAttackCards() {
-    return {
+    return 
+    {
         Card("撩云式", CardType::Attack, 15, 1.0, false, 1, "基础攻击招式"),
         Card("转轮式", CardType::Attack, 18, 1.2, false, 1, "旋转攻击，伤害较高"),
         Card("拨风式", CardType::Attack, 12, 0.8, false, 1, "快速出击，消耗较低"),
@@ -16,7 +17,8 @@ QList<Card> CardDeck::getAllAttackCards() {
 }
 
 QList<Card> CardDeck::getAllDefenseCards() {
-    return {
+    return 
+    {
         Card("格挡", CardType::Defense, 10, 0.0, false, 1, "举起大刀格挡，70%完全防御"),
         Card("闪避", CardType::Defense, 8, 0.0, false, 1, "侧身闪避，70%完全防御"),
         Card("拖刀斩", CardType::Defense, 15, 0.5, true, 4, "拖刀反击，完全防御并反弹50%伤害"),
@@ -24,44 +26,50 @@ QList<Card> CardDeck::getAllDefenseCards() {
     };
 }
 
-QList<Card> CardDeck::getAvailableAttackCards(int weaponLevel) {
+QList<Card> CardDeck::getAvailableAttackCards(int weaponLevel) 
+{
     QList<Card> result;
-    for (const auto &card : getAllAttackCards()) {
-        if (weaponLevel >= card.unlockWeaponLevel) {
+    for (const auto &card : getAllAttackCards()) 
+    {
+        if (weaponLevel >= card.unlockWeaponLevel) 
             result.append(card);
-        }
     }
     return result;
 }
 
-QList<Card> CardDeck::getAvailableDefenseCards(int weaponLevel) {
+QList<Card> CardDeck::getAvailableDefenseCards(int weaponLevel) 
+{
     QList<Card> result;
-    for (const auto &card : getAllDefenseCards()) {
-        if (weaponLevel >= card.unlockWeaponLevel) {
+    for (const auto &card : getAllDefenseCards()) 
+    {
+        if (weaponLevel >= card.unlockWeaponLevel) 
             result.append(card);
-        }
     }
     return result;
 }
 
 QList<Card> CardDeck::drawCards(bool enemyAttacking, int weaponLevel) {
     QList<Card> result;
-    if (enemyAttacking) {
-        // 敌方进攻：1张攻击 + 2张防御
+    if (enemyAttacking) 
+    {
         auto attacks = getAvailableAttackCards(weaponLevel);
         auto defenses = getAvailableDefenseCards(weaponLevel);
-        if (!attacks.isEmpty()) {
+        if (!attacks.isEmpty()) 
+        {
             int idx = QRandomGenerator::global()->bounded(attacks.size());
             result.append(attacks[idx]);
         }
-        for (int i = 0; i < 2 && !defenses.isEmpty(); ++i) {
+        for (int i = 0; i < 2 && !defenses.isEmpty(); ++i) 
+        {
             int idx = QRandomGenerator::global()->bounded(defenses.size());
             result.append(defenses[idx]);
         }
-    } else {
-        // 敌方防御：3张攻击
+    } 
+    else 
+    {
         auto attacks = getAvailableAttackCards(weaponLevel);
-        for (int i = 0; i < 3 && !attacks.isEmpty(); ++i) {
+        for (int i = 0; i < 3 && !attacks.isEmpty(); ++i) 
+        {
             int idx = QRandomGenerator::global()->bounded(attacks.size());
             result.append(attacks[idx]);
         }
@@ -69,7 +77,8 @@ QList<Card> CardDeck::drawCards(bool enemyAttacking, int weaponLevel) {
     return result;
 }
 
-int CardDeck::getPhyCostWithWeaponLevel(int baseCost, int weaponLevel) {
+int CardDeck::getPhyCostWithWeaponLevel(int baseCost, int weaponLevel) 
+{
     int reduction = 0;
     if (weaponLevel >= 3) reduction += 2;
     if (weaponLevel >= 4) reduction += 2;

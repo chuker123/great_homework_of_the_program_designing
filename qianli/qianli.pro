@@ -8,7 +8,6 @@ TEMPLATE = app
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    gamemanager.cpp \
     models/player.cpp \
     models/card.cpp \
     models/enemy.cpp \
@@ -29,7 +28,6 @@ SOURCES += \
 
 HEADERS += \
     mainwindow.h \
-    gamemanager.h \
     models/player.h \
     models/card.h \
     models/enemy.h \

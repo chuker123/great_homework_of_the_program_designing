@@ -6,7 +6,8 @@
 #include <QMap>
 #include <QDataStream>
 
-class Inventory {
+class Inventory 
+{
 public:
     void addItem(ItemType type);
     bool useItem(ItemType type, Player &player);
@@ -22,4 +23,4 @@ private:
     QMap<ItemType, int> m_items;
 };
 
-#endif // INVENTORY_H
+#endif 
