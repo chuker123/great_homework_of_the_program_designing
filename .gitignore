@@ -1,17 +1,13 @@
-# 忽略构建目录（最关键）
 build/
 debug/
 release/
-
-# 忽略 Qt 生成的中间文件（防止超大文件）
 qrc_*.cpp
 moc_*.cpp
 ui_*.h
 *.o
 *.exe
-
-# 忽略 IDE 和系统垃圾文件
 *.user
 *.autosave
 .qtcreator/
 .DS_Store
+ 
